@@ -1,5 +1,3 @@
-
-// components/auth/ProtectedRoute.jsx
 import React from 'react';
 import { Navigate, Outlet } from 'react-router';
 import { useAuth } from '../../contexts/AuthContext';
@@ -16,15 +14,3 @@ const ProtectedRoute = () => {
 };
 
 export default ProtectedRoute;
-
-// components/layout/Layout.jsx
-import React from 'react';
-import { Outlet } from 'react-router';
-
-const Layout = () => {
-  return (
-    <div className="min-h-screen bg-gray-100">
-      <Outlet />
-    </div>
-  );
-};

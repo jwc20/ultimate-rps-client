@@ -1,7 +1,4 @@
-
-// API Configuration
 const API_BASE_URL = "http://127.0.0.1:8000";
-const WS_BASE_URL = "ws://127.0.0.1:8000";
 
 const api = {
   login: async (playerName) => {
@@ -22,7 +19,12 @@ const api = {
     const response = await fetch(`${API_BASE_URL}/api/rooms/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ room_name: roomName, max_players: maxPlayers, number_of_actions: numAction, player_id: playerId })
+      body: JSON.stringify({
+        room_name: roomName,
+        max_players: maxPlayers,
+        number_of_actions: numAction,
+        player_id: playerId
+      })
     });
     return response.json();
   },

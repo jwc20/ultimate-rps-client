@@ -1,5 +1,5 @@
+import React from 'react';
 
-// Room Card Component
 const RoomCard = ({ room, onJoin }) => {
     const isFull = room.player_count >= room.max_players;
 
@@ -26,3 +26,5 @@ const RoomCard = ({ room, onJoin }) => {
         </div>
     );
 };
+
+export default RoomCard;
