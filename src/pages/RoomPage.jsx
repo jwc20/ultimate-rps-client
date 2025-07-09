@@ -34,6 +34,7 @@ const RoomPage = () => {
                 setMessages(data.messages);
                 break;
             case "chat":
+            case "play":
             case "system":
                 setMessages((prev) => [...prev, data]);
                 break;
@@ -52,6 +53,13 @@ const RoomPage = () => {
     const handleSendMessage = useCallback((messageText) => {
         sendMessage({
             type: "chat",
+            message: messageText,
+        });
+    }, [sendMessage]);
+
+    const handlePlayMessage = useCallback((messageText) => {
+        sendMessage({
+            type: "play",
             message: messageText,
         });
     }, [sendMessage]);
@@ -84,8 +92,10 @@ const RoomPage = () => {
                         <Chat
                             messages={messages}
                             onSendMessage={handleSendMessage}
+                            onPlayMessage={handlePlayMessage}
                             disabled={!connected}
                             playerId={user.id}
+                            numAction={Number(roomInfo.numAction)}
                         />
                     </div>
 
