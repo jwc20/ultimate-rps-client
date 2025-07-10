@@ -1,9 +1,14 @@
 import React from 'react';
 
 const LoadingSpinner = () => (
-    <div className="min-h-screen flex items-center justify-center">
-        Loading...
-    </div>
+    <main style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }}>
+        <div aria-busy="true">Loading...</div>
+    </main>
 );
 
 export default LoadingSpinner;

@@ -40,15 +40,15 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-96">
-                <h1 className="text-3xl font-bold text-center mb-6">🎮 Enter Game</h1>
-                <p className="text-gray-600 text-center mb-6">
+        <div className="container" style={{minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            <form onSubmit={handleSubmit} className="card" style={{width: '400px', margin: '0 auto'}}>
+                <h1 className="mb-3">🎮 Enter Game</h1>
+                <p className="mb-3">
                     Choose your player name to start playing!
                 </p>
 
                 {error && (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    <div className="mb-3" style={{color: 'var(--form-element-invalid-border-color)'}}>
                         {error}
                     </div>
                 )}
@@ -59,12 +59,12 @@ const LoginPage = () => {
                     onChange={(e) => setPlayerName(e.target.value)}
                     placeholder="Your Player Name"
                     maxLength={20}
-                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+                    className="mb-3"
                 />
                 <button
                     type="submit"
                     disabled={loading || !playerName.trim()}
-                    className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 disabled:bg-blue-400 transition-colors"
+                    className="contrast"
                 >
                     {loading ? "Entering..." : "Enter Lobby"}
                 </button>

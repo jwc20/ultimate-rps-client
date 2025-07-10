@@ -19,65 +19,63 @@ const CreateRoomForm = ({ onCreateRoom, loading }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg mb-6">
-            <h2 className="text-2xl font-semibold mb-4">Create New Room</h2>
-
-            <div className="space-y-4">
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                        Room Name
-                    </label>
+      <form onSubmit={handleSubmit}>
+        <article>
+            <header>
+                <h2>Create New Room</h2>
+            </header>
+            
+            <fieldset>
+                <label htmlFor="roomName">
+                    Room Name
                     <input
+                        id="roomName"
                         type="text"
                         value={formData.roomName}
                         onChange={handleChange('roomName')}
                         placeholder="Enter room name"
-                        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                     />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Max Players
-                        </label>
+                </label>
+    
+                <div className="grid">
+                    <label htmlFor="maxPlayers">
+                        Max Players
                         <input
+                            id="maxPlayers"
                             type="number"
                             value={formData.maxPlayers}
                             onChange={handleChange('maxPlayers')}
-                            placeholder="Default: 10"
+                            placeholder="Default: 2"
                             min="2"
-                            max="20"
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            max="100"
                         />
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Number of Actions
-                        </label>
+                    </label>
+    
+                    <label htmlFor="numAction">
+                        Number of Actions
                         <input
+                            id="numAction"
                             type="number"
                             value={formData.numAction}
                             onChange={handleChange('numAction')}
                             placeholder="Default: 3"
-                            min="1"
-                            max="10"
-                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            min="3"
+                            max="99"
                         />
-                    </div>
+                    </label>
                 </div>
-
+    
                 <button
                     type="submit"
                     disabled={loading || !formData.roomName.trim()}
-                    className="w-full px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-blue-400 transition-colors"
+                    aria-busy={loading}
                 >
                     {loading ? "Creating..." : "Create Room"}
                 </button>
-            </div>
-        </form>
+            </fieldset>
+        </article>
+    </form>
     );
 };
 

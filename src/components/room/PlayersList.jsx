@@ -1,24 +1,35 @@
 import React from 'react';
 
 const PlayersList = ({ players, currentPlayerId }) => (
-    <div className="bg-gray-200 p-4 rounded-lg">
-        <h3 className="text-xl font-semibold mb-4">👥 Players in Room</h3>
-        <div className="space-y-2">
+    <article>
+        <header>
+            <h3>👥 Players in Room</h3>
+        </header>
+        <div>
             {players.map((player) => (
-                <div
-                    key={player.id}
-                    className={`bg-white p-3 rounded-lg ${
-                        player.id === currentPlayerId ? 'ring-2 ring-blue-500' : ''
-                    }`}
+                <div 
+                    key={player.id} 
+                    style={{
+                        padding: '0.5rem',
+                        marginBottom: '0.25rem',
+                        borderRadius: 'var(--pico-border-radius)',
+                        backgroundColor: player.id === currentPlayerId 
+                            ? 'var(--pico-primary-background)' 
+                            : 'var(--pico-secondary-background)',
+                        color: player.id === currentPlayerId 
+                            ? 'var(--pico-primary-inverse)' 
+                            : 'var(--pico-color)',
+                        border: '1px solid var(--pico-border-color)'
+                    }}
                 >
-                    <span className="font-medium">{player.name}</span>
+                    <span>{player.name}</span>
                     {player.id === currentPlayerId && (
-                        <span className="text-sm text-blue-600 ml-2">(You)</span>
+                        <span> (You)</span>
                     )}
                 </div>
             ))}
         </div>
-    </div>
+    </article>
 );
 
 export default PlayersList;

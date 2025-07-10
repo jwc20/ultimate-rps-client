@@ -1,10 +1,12 @@
-import React from 'react';
+import React from "react";
 
 const PlayerInfo = ({ user }) => (
-    <div className="bg-gray-200 p-4 rounded-lg mb-6">
-        <h3 className="font-semibold">Player: {user.name}</h3>
-        <p className="text-sm text-gray-600">ID: {user.id}</p>
-    </div>
+    <article>
+        <div>Player: {user.name}</div>
+        <div>
+            <small>ID: {user.id}</small>
+        </div>
+    </article>
 );
 
 export default PlayerInfo;

@@ -9,6 +9,22 @@ const api = {
     });
     return response.json();
   },
+  autoLogin: async () => {
+    const response = await fetch(`${API_BASE_URL}/api/auto-login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }
+    });
+    return response.json();
+  },
+
+  updatePlayerName: async (playerId, newName) => {
+    const response = await fetch(`/api/player/${playerId}/name`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ player_name: newName })
+    });
+    return response.json();
+  },
 
   getRooms: async () => {
     const response = await fetch(`${API_BASE_URL}/api/rooms`);

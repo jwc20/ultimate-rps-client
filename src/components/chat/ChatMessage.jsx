@@ -1,21 +1,47 @@
-import React from 'react';
+import React from "react";
 
 const ChatMessage = ({ message, isOwnMessage, isSystem }) => {
-    const baseClasses = "mb-2 p-3 rounded-lg";
-    const classes = isSystem
-        ? `${baseClasses} bg-yellow-100 italic text-center`
-        : isOwnMessage
-            ? `${baseClasses} bg-blue-100 ml-8`
-            : `${baseClasses} bg-gray-100 mr-8`;
+    const baseStyle = {
+        marginBottom: '0.5rem',
+        padding: '0.75rem',
+        borderRadius: 'var(--pico-border-radius)',
+        border: '1px solid var(--pico-border-color)'
+    };
+
+    const systemStyle = {
+        ...baseStyle,
+        backgroundColor: 'var(--pico-warning-background-color)',
+        textAlign: 'center',
+        fontStyle: 'italic'
+    };
+
+    const ownMessageStyle = {
+        ...baseStyle,
+        backgroundColor: 'var(--pico-primary-background)',
+        marginLeft: '2rem',
+        marginRight: '0'
+    };
+
+    const otherMessageStyle = {
+        ...baseStyle,
+        backgroundColor: 'var(--pico-background-color)',
+        marginLeft: '0',
+        marginRight: '2rem'
+    };
+
+    const style = isSystem 
+        ? systemStyle 
+        : isOwnMessage 
+        ? ownMessageStyle 
+        : otherMessageStyle;
 
     return (
-        <div className={classes}>
+        <div style={style}>
             {isSystem ? (
-                <span className="text-sm">{message.message}</span>
+                <small>{message.message}</small>
             ) : (
                 <>
-                    <span className="font-semibold">{message.player_name}:</span>
-                    <span className="ml-2">{message.message}</span>
+                    <strong>{message.player_name}:</strong> {message.message}
                 </>
             )}
         </div>

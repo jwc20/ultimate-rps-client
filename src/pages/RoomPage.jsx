@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router';
-import { useAuth } from '../contexts/AuthContext'
-import useWebSocket from '../hooks/useWebSocket';
-import api from '../services/api.js';
-import RoomHeader from '../components/room/RoomHeader';
-import Chat from '../components/chat/Chat';
-import PlayersList from '../components/room/PlayersList';
-import LoadingSpinner from '../components/common/LoadingSpinner';
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useParams, useNavigate } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
+import useWebSocket from "../hooks/useWebSocket";
+import api from "../services/api.js";
+import RoomHeader from "../components/room/RoomHeader";
+import Chat from "../components/chat/Chat";
+import PlayersList from "../components/room/PlayersList";
+import LoadingSpinner from "../components/common/LoadingSpinner";
 
 const RoomPage = () => {
     const { roomId } = useParams();
@@ -17,7 +17,7 @@ const RoomPage = () => {
     const [players, setPlayers] = useState([]);
     const [roomInfo, setRoomInfo] = useState({
         name: "",
-        numAction: ""
+        numAction: "",
     });
 
     // Memoize the onMessage callback to prevent infinite re-renders
@@ -26,7 +26,7 @@ const RoomPage = () => {
             case "room_info":
                 setRoomInfo({
                     name: data.room_name,
-                    numAction: data.number_of_actions
+                    numAction: data.number_of_actions,
                 });
                 setPlayers(data.players);
                 break;
@@ -47,27 +47,33 @@ const RoomPage = () => {
     }, []); // Empty dependency array since we're using functional updates
 
     const { sendMessage, connected } = useWebSocket(roomId, user?.id, {
-        onMessage: handleWebSocketMessage
+        onMessage: handleWebSocketMessage,
     });
 
-    const handleSendMessage = useCallback((messageText) => {
-        sendMessage({
-            type: "chat",
-            message: messageText,
-        });
-    }, [sendMessage]);
+    const handleSendMessage = useCallback(
+        (messageText) => {
+            sendMessage({
+                type: "chat",
+                message: messageText,
+            });
+        },
+        [sendMessage]
+    );
 
-    const handlePlayMessage = useCallback((messageText) => {
-        sendMessage({
-            type: "play",
-            message: messageText,
-        });
-    }, [sendMessage]);
+    const handlePlayMessage = useCallback(
+        (messageText) => {
+            sendMessage({
+                type: "play",
+                message: messageText,
+            });
+        },
+        [sendMessage]
+    );
 
     const handleLeaveRoom = async () => {
         try {
             await api.leaveRoom(user.id);
-            navigate('/lobby');
+            navigate("/lobby");
         } catch (error) {
             console.error("Error leaving room:", error);
         }
@@ -78,33 +84,31 @@ const RoomPage = () => {
     }
 
     return (
-        <div className="p-6">
-            <div className="max-w-6xl mx-auto">
-                <RoomHeader
-                    roomInfo={roomInfo}
-                    user={user}
-                    roomId={roomId}
-                    onLeave={handleLeaveRoom}
-                />
+        <main className="container">
+            <RoomHeader
+                roomInfo={roomInfo}
+                user={user}
+                roomId={roomId}
+                onLeave={handleLeaveRoom}
+            />
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div className="lg:col-span-2">
-                        <Chat
-                            messages={messages}
-                            onSendMessage={handleSendMessage}
-                            onPlayMessage={handlePlayMessage}
-                            disabled={!connected}
-                            playerId={user.id}
-                            numAction={Number(roomInfo.numAction)}
-                        />
-                    </div>
+            <div className="grid">
+                <section>
+                    <Chat
+                        messages={messages}
+                        onSendMessage={handleSendMessage}
+                        onPlayMessage={handlePlayMessage}
+                        disabled={!connected}
+                        playerId={user.id}
+                        numAction={Number(roomInfo.numAction)}
+                    />
+                </section>
 
-                    <div>
-                        <PlayersList players={players} currentPlayerId={user.id} />
-                    </div>
-                </div>
+                <aside>
+                    <PlayersList players={players} currentPlayerId={user.id} />
+                </aside>
             </div>
-        </div>
+        </main>
     );
 };
 

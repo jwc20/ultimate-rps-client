@@ -55,51 +55,51 @@ const LobbyPage = () => {
     };
 
     return (
-        <div className="p-6">
-            <div className="max-w-4xl mx-auto">
-                <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-4xl font-bold">🎮 Game Lobby</h1>
-                    <button
-                        onClick={logout}
-                        className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
-                    >
-                        Logout
-                    </button>
-                </div>
+        <main className="container">
+            <header>
+                <h1>🎮 Game Lobby</h1>
+            </header>
 
-                <PlayerInfo user={user} />
+            <PlayerInfo user={user} />
 
-                <CreateRoomForm onCreateRoom={handleCreateRoom} loading={loading} />
+            <CreateRoomForm onCreateRoom={handleCreateRoom} loading={loading} />
 
-                <div className="bg-white p-6 rounded-lg shadow-lg">
-                    <div className="flex justify-between items-center mb-4">
-                        <h2 className="text-2xl font-semibold">Available Rooms</h2>
-                        <button
-                            onClick={loadRooms}
-                            className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-                        >
-                            Refresh
-                        </button>
+            <section>
+                <header>
+                    <nav>
+                        <ul>
+                            <li><h2>Available Rooms</h2></li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <button
+                                    onClick={loadRooms}
+                                    className="secondary"
+                                >
+                                    Refresh
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+
+                {rooms.length === 0 ? (
+                    <p style={{ textAlign: 'center', padding: '2rem 0' }}>
+                        No rooms available. Create one to get started!
+                    </p>
+                ) : (
+                    <div className="grid">
+                        {rooms.map((room) => (
+                            <RoomCard
+                                key={room.id}
+                                room={room}
+                                onJoin={handleJoinRoom}
+                            />
+                        ))}
                     </div>
-
-                    {rooms.length === 0 ? (
-                        <p className="text-gray-500 text-center py-8">
-                            No rooms available. Create one to get started!
-                        </p>
-                    ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {rooms.map((room) => (
-                                <RoomCard
-                                    key={room.id}
-                                    room={room}
-                                    onJoin={handleJoinRoom}
-                                />
-                            ))}
-                        </div>
-                    )}
-                </div>
-            </div>
-        </div>
+                )}
+            </section>
+        </main>
     );
 };
 
