@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { tokenManager } from "../api/tokenManager";
+import { LoadingOrEmptyMessage } from "../components/LoadingOrEmptyMessage";
 
 function RoomPage() {
     const { roomId } = useParams();
@@ -93,11 +94,9 @@ function RoomPage() {
                     position: "relative",
                 }}
             >
-                {isLoadingHistory && messages.length === 0 && (
-                    <div style={{ textAlign: "center", color: "#666" }}>
-                        Loading chat history...
-                    </div>
-                )}
+                {isLoadingHistory && messages.length === 0 ? (
+                    <LoadingOrEmptyMessage />
+                ) : null}
 
                 {messages.map((msg, idx) => {
                     const isMe =
