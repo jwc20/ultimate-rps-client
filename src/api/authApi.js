@@ -30,7 +30,6 @@ export const authApi = {
 
   async logout() {
     tokenManager.removeToken();
-    // If your backend has a logout endpoint, call it here
     // await apiClient.post('/logout');
   },
 

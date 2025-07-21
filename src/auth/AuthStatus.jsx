@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import { useAuth } from "./useAuth";
+import { useAuth } from "../hooks/useAuth";
 import { LoginPage } from "../pages/LoginPage";
 
 function AuthStatus() {

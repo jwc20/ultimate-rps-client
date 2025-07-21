@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useAuth } from "../auth/useAuth";
+import { useAuth } from "../hooks/useAuth";
 
 
 function Login() {
     const navigate = useNavigate();
-    const location = useLocation();
+    // const location = useLocation();
     const { signin, loading, error } = useAuth();
     const [formError, setFormError] = React.useState("");
 
