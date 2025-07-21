@@ -58,7 +58,9 @@ export function useRoomWebSocket(roomId, user, setMessages) {
                 case "round_complete":
                     setGameState((prev) => ({
                         ...prev,
-                        isEliminated: parsed.eliminated.includes(user?.username),
+                        isEliminated: parsed.eliminated.includes(
+                            user?.username
+                        ),
                         currentRound: parsed.round + 1,
                         hasPlayed: false,
                         readyPlayers: 0,
