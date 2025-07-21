@@ -33,6 +33,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:19.1.8"],\
           ["@types/react-dom", "virtual:e59a014d074e596fe7544253cdda791b9c9551fa943c20e962a6c979014c1d818469c5ffd7e9033bb17f4c202914301234a92436ea7eb259750fb9ed6f8765f8#npm:19.1.6"],\
           ["@vitejs/plugin-react-swc", "virtual:e59a014d074e596fe7544253cdda791b9c9551fa943c20e962a6c979014c1d818469c5ffd7e9033bb17f4c202914301234a92436ea7eb259750fb9ed6f8765f8#npm:3.11.0"],\
+          ["crypto-js", "npm:4.2.0"],\
           ["eslint", "virtual:e59a014d074e596fe7544253cdda791b9c9551fa943c20e962a6c979014c1d818469c5ffd7e9033bb17f4c202914301234a92436ea7eb259750fb9ed6f8765f8#npm:9.31.0"],\
           ["eslint-plugin-react-hooks", "virtual:e59a014d074e596fe7544253cdda791b9c9551fa943c20e962a6c979014c1d818469c5ffd7e9033bb17f4c202914301234a92436ea7eb259750fb9ed6f8765f8#npm:5.2.0"],\
           ["eslint-plugin-react-refresh", "virtual:e59a014d074e596fe7544253cdda791b9c9551fa943c20e962a6c979014c1d818469c5ffd7e9033bb17f4c202914301234a92436ea7eb259750fb9ed6f8765f8#npm:0.4.20"],\
@@ -1245,6 +1246,15 @@ const RAW_RUNTIME_STATE =
           ["path-key", "npm:3.1.1"],\
           ["shebang-command", "npm:2.0.0"],\
           ["which", "npm:2.0.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["crypto-js", [\
+      ["npm:4.2.0", {\
+        "packageLocation": "../../../../../.yarn/berry/cache/crypto-js-npm-4.2.0-d6f7744e63-10c0.zip/node_modules/crypto-js/",\
+        "packageDependencies": [\
+          ["crypto-js", "npm:4.2.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2721,6 +2731,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:19.1.8"],\
           ["@types/react-dom", "virtual:e59a014d074e596fe7544253cdda791b9c9551fa943c20e962a6c979014c1d818469c5ffd7e9033bb17f4c202914301234a92436ea7eb259750fb9ed6f8765f8#npm:19.1.6"],\
           ["@vitejs/plugin-react-swc", "virtual:e59a014d074e596fe7544253cdda791b9c9551fa943c20e962a6c979014c1d818469c5ffd7e9033bb17f4c202914301234a92436ea7eb259750fb9ed6f8765f8#npm:3.11.0"],\
+          ["crypto-js", "npm:4.2.0"],\
           ["eslint", "virtual:e59a014d074e596fe7544253cdda791b9c9551fa943c20e962a6c979014c1d818469c5ffd7e9033bb17f4c202914301234a92436ea7eb259750fb9ed6f8765f8#npm:9.31.0"],\
           ["eslint-plugin-react-hooks", "virtual:e59a014d074e596fe7544253cdda791b9c9551fa943c20e962a6c979014c1d818469c5ffd7e9033bb17f4c202914301234a92436ea7eb259750fb9ed6f8765f8#npm:5.2.0"],\
           ["eslint-plugin-react-refresh", "virtual:e59a014d074e596fe7544253cdda791b9c9551fa943c20e962a6c979014c1d818469c5ffd7e9033bb17f4c202914301234a92436ea7eb259750fb9ed6f8765f8#npm:0.4.20"],\

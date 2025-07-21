@@ -4,6 +4,8 @@ import { useAuth } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import { tokenManager } from "../api/tokenManager";
 import { LoadingOrEmptyMessage } from "../components/LoadingOrEmptyMessage";
+import { apiClient } from "../api/apiClient";
+
 
 function RoomPage() {
     const { roomId } = useParams();
@@ -13,6 +15,9 @@ function RoomPage() {
     const [isLoadingHistory, setIsLoadingHistory] = useState(true);
     const { user } = useAuth();
     const messagesEndRef = useRef(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [room, setRoom] = useState();
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -21,6 +26,25 @@ function RoomPage() {
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+
+    useEffect(() => {
+      if (!roomId) return;
+      const fetchRoom = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          const data = await apiClient.get(`/room/${roomId}`);
+          console.log(data)
+          setRoom(data);
+        } catch (err) {
+          setError(err.message || 'Failed to fetch room');
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchRoom();
+    }, []);
+
 
     useEffect(() => {
         if (!roomId) return;
@@ -71,9 +95,21 @@ function RoomPage() {
     const handleSend = (e) => {
         e.preventDefault();
         if (wsRef.current && input.trim() && user?.username) {
-            const msgObj = { username: user.username, message: input };
+            const msgObj = { username: user.username, message: input, type: 'message' };
             wsRef.current.send(JSON.stringify(msgObj));
             setInput("");
+        }
+    };
+
+    const handlePlay = (actionIndex) => {
+        if (wsRef.current && user?.username) {
+
+            const msgObj = {
+                username: user.username,
+                type: "play",
+                message: actionIndex,
+            };
+            wsRef.current.send(JSON.stringify(msgObj));
         }
     };
 
@@ -87,7 +123,9 @@ function RoomPage() {
             <div
                 style={{
                     border: "1px solid #ccc",
+                    justifyContent: "center",
                     height: 400,
+                    width:600,
                     overflowY: "auto",
                     marginBottom: 8,
                     padding: 8,
@@ -135,7 +173,14 @@ function RoomPage() {
                                         {msg.username}
                                     </div>
                                 ) : null}
-                                <div>{msg.message}</div>
+                                {msg.type === "play" ? (
+                                    <em>
+                                        {isMe ? "You" : msg.username} played an
+                                        action.
+                                    </em>
+                                ) : (
+                                    <div>{msg.message}</div>
+                                )}
                                 {msg.timestamp && (
                                     <div
                                         style={{
@@ -168,6 +213,25 @@ function RoomPage() {
                     Send
                 </button>
             </form>
+
+            {room && room.number_of_actions > 0 && (
+                <div style={{ marginTop: 16 }}>
+                    <h4>Actions</h4>
+                    <div style={{ display: "flex", gap: 8 }}>
+                        {Array.from({ length: room.number_of_actions }).map(
+                            (_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handlePlay(index)}
+                                >
+                                    Action {index + 1}
+                                </button>
+                            )
+                        )}
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 }
