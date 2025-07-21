@@ -7,6 +7,7 @@ import { HomePage } from "./pages/HomePage";
 import { LobbyPage } from "./pages/LobbyPage";
 import { RegisterPage } from "./pages/RegisterPage";
 
+import "./App.css";
 
 export default function App() {
   return (

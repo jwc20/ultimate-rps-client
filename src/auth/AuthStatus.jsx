@@ -1,11 +1,12 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useAuth } from "./useAuth";
-import { Login } from "../components/login";
+import { LoginPage } from "../pages/LoginPage";
 
 function AuthStatus() {
   const { user, signout, loading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSignout = async () => {
     await signout();
@@ -17,10 +18,15 @@ function AuthStatus() {
   }
 
   if (!user) {
+    if (location.pathname === "/login" || location.pathname === "/register") {
+      return <p>not logged in</p>;
+    }
     return (
         <>
             <p>not logged in</p>
-            <Login />
+            <Link to="/login">
+              <button>Login</button>
+            </Link>
         </>
     )
   }

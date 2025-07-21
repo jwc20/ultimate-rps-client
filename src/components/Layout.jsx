@@ -3,7 +3,7 @@ import { AuthStatus } from "../auth/AuthStatus";
 
 function Layout() {
   return (
-    <div>
+    <div className="center">
       <AuthStatus />
       <Outlet />
     </div>

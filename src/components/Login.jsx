@@ -9,7 +9,7 @@ function Login() {
     const { signin, loading, error } = useAuth();
     const [formError, setFormError] = React.useState("");
 
-    const from = location.state?.from?.pathname || "/";
+    // const from = location.state?.from?.pathname || "/lobby";
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -27,7 +27,7 @@ function Login() {
         const result = await signin(username, password);
 
         if (result.success) {
-            navigate(from, { replace: true });
+            navigate("/lobby", { replace: true });
         } else {
             setFormError(result.error || "Login failed");
         }

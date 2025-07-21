@@ -40,3 +40,15 @@
 .read-the-docs {
   color: #888;
 }
+
+.center {
+  box-sizing: content-box;
+  margin-inline: auto;
+  max-inline-size: var(--measure);
+}
+
+.page {
+    min-height: 700px;
+    border: black 1px;
+    width: 800px;
+}
