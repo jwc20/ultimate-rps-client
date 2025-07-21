@@ -34,7 +34,6 @@ function Rooms() {
         {rooms.map((room) => (
           <li key={room.id}>
             <span>{room.room_name} (ID: {room.id})</span>
-            {/* <button onClick={() => handleJoin(room.id)} style={{ marginLeft: '1em' }}>Join</button> */}
             <Link to={`/room/${room.id}`}>
               <button>Join</button>
             </Link>
