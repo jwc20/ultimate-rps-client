@@ -6,6 +6,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { HomePage } from "./pages/HomePage";
 import { LobbyPage } from "./pages/LobbyPage";
 import { RegisterPage } from "./pages/RegisterPage";
+import { RoomPage } from "./pages/RoomPage";
 
 import "./App.css";
 
@@ -25,6 +26,14 @@ export default function App() {
             element={
               <RequireAuth>
                 <LobbyPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/room/:roomId"
+            element={
+              <RequireAuth>
+                <RoomPage />
               </RequireAuth>
             }
           />
