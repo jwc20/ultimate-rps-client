@@ -4,6 +4,15 @@ import { useAuth } from "../hooks/useAuth";
 import { Login } from "../components/login";
 
 function LoginPage() {
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+        if (user) {
+            navigate("/lobby", { replace: true });
+        }
+    }, [user, navigate]);
+
     return (
         <div>
             <h2>Login</h2>

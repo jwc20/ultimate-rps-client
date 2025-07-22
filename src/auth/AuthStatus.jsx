@@ -4,41 +4,63 @@ import { useAuth } from "../hooks/useAuth";
 import { LoginPage } from "../pages/LoginPage";
 
 function AuthStatus() {
-  const { user, signout, loading } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
+    const { user, signout, loading } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-  const handleSignout = async () => {
-    await signout();
-    navigate("/");
-  };
+    const handleSignout = async () => {
+        await signout();
+        navigate("/");
+    };
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (!user) {
-    if (location.pathname === "/login" || location.pathname === "/register") {
-      return <p>not logged in</p>;
+    if (loading) {
+        return <p>Loading...</p>;
     }
-    return (
-        <>
-            <p>not logged in</p>
-            <Link to="/login">
-              <button>Login</button>
-            </Link>
-        </>
-    )
-  }
 
-  return (
-    <p>
-      Welcome {user.username}!{" "}
-      <button onClick={handleSignout} disabled={loading}>
-        {loading ? 'Signing out...' : 'Sign out'}
-      </button>
-    </p>
-  );
-}
+    if (!user) {
+        if (
+            location.pathname === "/login" ||
+            location.pathname === "/register"
+        ) {
+            return <></>;
+        }
+        return <></>;
+    }
+
+    return (
+        <div
+            style={{
+                position: "fixed",
+                top: "20px",
+                right: "30px",
+                zIndex: 1000,
+                background: "rgba(36,36,36,0.95)",
+                borderRadius: "6px",
+                padding: "8px 16px",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                display: "flex",
+                alignItems: "center",
+                minWidth: "120px",
+            }}
+        >
+            <span style={{ fontWeight: "bold" }}>{user.username}</span>
+            <button
+                onClick={handleSignout}
+                disabled={loading}
+                style={{
+                    marginLeft: "12px",
+                    padding: "4px 10px",
+                    fontSize: "0.95em",
+                    borderRadius: "6px",
+                    border: "none",
+                    color: "#fff",
+                    cursor: "pointer",
+                }}
+            >
+                {loading ? "Signing out..." : "Sign out"}
+            </button>
+        </div>
+    );
+  }
 
 export { AuthStatus };
