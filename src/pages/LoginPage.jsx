@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { Login } from "../components/login";
+import { Login } from "../components/Login";
 
 function LoginPage() {
     const { user } = useAuth();
