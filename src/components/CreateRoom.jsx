@@ -65,7 +65,7 @@ function CreateRoom() {
                 padding: "10px",
             }}
         >
-            <div style={{ margin: "10px", padding: "10px" }}>
+            <div style={{ margin: "10px"}}>
                 <h3>Create room</h3>
                 {!isAuthenticated && !authLoading ? (
                     <div style={{ color: "red", marginBottom: "10px" }}>
@@ -86,43 +86,63 @@ function CreateRoom() {
                             }
                         />
                     </div>
-                    <div style={{ padding: "10px 0" }}>
-                        <label>Max Players:</label>
-                        <input
-                            style={{ margin: "0 10px" }}
-                            type="number"
-                            min="2"
-                            max="10"
-                            value={maxPlayers}
-                            onChange={handleMaxPlayersChange}
-                            required
-                            disabled={!isAuthenticated || loading || authLoading}
-                        />
-                    </div>
-                    <div style={{ padding: "10px 0" }}>
-                        <label>Number of Actions:</label>
-                        <input
-                            style={{ margin: "0 10px" }}
-                            type="number"
-                            min="3"
-                            max="10"
-                            step="2"
-                            value={numberOfActions}
-                            onChange={handleNumberOfActionsChange}
-                            required
-                            disabled={!isAuthenticated || loading || authLoading}
-                        />
-                        {numberOfActionsError && (
-                            <div style={{ color: "red" }}>{numberOfActionsError}</div>
-                        )}
-                    </div>
-                    <button
-                        type="submit"
-                        disabled={loading || !isAuthenticated || authLoading}
-                        style={{ marginTop: "10px" }}
+
+                    <div
+                        style={{
+                            display: "inline-flex",
+                            flexDirection: "row",
+                            gap: "40px",
+                            flexWrap: "wrap",
+                            justifyContent: "center",
+                        }}
                     >
-                        {loading ? "Creating..." : "Create Room"}
-                    </button>
+                        <div style={{ padding: "10px 0" }}>
+                            <label>Number of Actions:</label>
+                            <input
+                                style={{ margin: "0 10px" }}
+                                type="number"
+                                min="3"
+                                max="10"
+                                step="2"
+                                value={numberOfActions}
+                                onChange={handleNumberOfActionsChange}
+                                required
+                                disabled={
+                                    !isAuthenticated || loading || authLoading
+                                }
+                            />
+                            {numberOfActionsError && (
+                                <div style={{ color: "red" }}>
+                                    {numberOfActionsError}
+                                </div>
+                            )}
+                        </div>
+
+                        <div style={{ padding: "10px 0" }}>
+                            <label>Max Players:</label>
+                            <input
+                                style={{ margin: "0 10px" }}
+                                type="number"
+                                min="2"
+                                max="10"
+                                value={maxPlayers}
+                                onChange={handleMaxPlayersChange}
+                                required
+                                disabled={
+                                    !isAuthenticated || loading || authLoading
+                                }
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={
+                                loading || !isAuthenticated || authLoading
+                            }
+                        >
+                            {loading ? "Creating..." : "Create Room"}
+                        </button>
+                    </div>
                 </form>
                 {error && <div style={{ color: "red" }}>{error}</div>}
                 {success && <div style={{ color: "green" }}>{success}</div>}

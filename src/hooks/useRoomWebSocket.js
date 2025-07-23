@@ -1,8 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { tokenManager } from "../api/tokenManager";
 
+const WEBSOCKET_URL = import.meta.env.VITE_WEBSOCKET_URL;
+
+
 export function useRoomWebSocket(roomId, user, setMessages) {
     const wsRef = useRef(null);
+
+    const actionNames = {
+        0: '🪨',
+        1: '📄', 
+        2: '✂️'
+    };
 
     const [gameState, setGameState] = useState({
         players: [],
@@ -20,7 +29,7 @@ export function useRoomWebSocket(roomId, user, setMessages) {
         let isCleaningUp = false;
         const token = tokenManager.getToken();
         const ws = new WebSocket(
-            `ws://127.0.0.1:8000/ws/${roomId}?token=${token}`
+            `${WEBSOCKET_URL}/ws/${roomId}?token=${token}`
         );
         wsRef.current = ws;
         ws.onopen = () => {
@@ -122,6 +131,24 @@ export function useRoomWebSocket(roomId, user, setMessages) {
                   break;
 
               case "round_complete":
+                  let roundSummary = `Round ${parsed.round} complete!\n`;
+                  
+                  // Add player actions from server
+                  if (parsed.actions && Object.keys(parsed.actions).length > 0) {
+                      roundSummary += "\nPlayer Actions:";
+                      for (const [player, action] of Object.entries(parsed.actions)) {
+                          const actionName = actionNames[action] || `action ${action}`;
+                          roundSummary += `\n• ${player}: ${actionName}`;
+                      }
+                  }
+                  
+                  // Add elimination info
+                  const eliminatedMsg = parsed.eliminated.length > 0 
+                      ? `\n\nEliminated: ${parsed.eliminated.join(", ")}`
+                      : "\n\nNo one eliminated";
+                  
+                  roundSummary += eliminatedMsg;
+                  
                   setGameState((prev) => ({
                       ...prev,
                       isEliminated: parsed.eliminated.includes(user?.username),
@@ -132,13 +159,9 @@ export function useRoomWebSocket(roomId, user, setMessages) {
                       winner: parsed.winner,
                   }));
                   
-                  const eliminatedMsg = parsed.eliminated.length > 0 
-                      ? `Eliminated: ${parsed.eliminated.join(", ")}`
-                      : "No one eliminated";
-                  
                   setMessages((prev) => [...prev, {
                       type: "system",
-                      message: `Round ${parsed.round} complete! ${eliminatedMsg}`,
+                      message: roundSummary,
                       timestamp: new Date().toISOString(),
                   }]);
                   
@@ -186,14 +209,14 @@ export function useRoomWebSocket(roomId, user, setMessages) {
       ws.onclose = () => {
           if (!isCleaningUp) {
               console.log(`Disconnected from room ${roomId}`);
-              setConnectionStatus('disconnected');
+              // setConnectionStatus('disconnected');
           }
       };
 
       ws.onerror = (err) => {
           if (!isCleaningUp && ws.readyState !== WebSocket.CLOSING) {
               console.error("WebSocket error:", err);
-              setConnectionStatus('error');
+              // setConnectionStatus('error');
           }
       };
 
