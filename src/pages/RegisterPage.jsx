@@ -9,7 +9,7 @@ function RegisterPage() {
 
     React.useEffect(() => {
         if (user) {
-            navigate("/lobby", { replace: true });
+            navigate("/", { replace: true });
         }
     }, [user, navigate]);
 
