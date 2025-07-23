@@ -34,7 +34,7 @@ function AuthStatus() {
                 top: "20px",
                 right: "30px",
                 zIndex: 1000,
-                background: "rgba(36,36,36,0.95)",
+                // background: "rgba(36,36,36,0.95)",
                 borderRadius: "6px",
                 padding: "8px 16px",
                 boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
@@ -49,12 +49,6 @@ function AuthStatus() {
                 disabled={loading}
                 style={{
                     marginLeft: "12px",
-                    padding: "4px 10px",
-                    fontSize: "0.95em",
-                    borderRadius: "6px",
-                    border: "none",
-                    color: "#fff",
-                    cursor: "pointer",
                 }}
             >
                 {loading ? "Signing out..." : "Sign out"}
