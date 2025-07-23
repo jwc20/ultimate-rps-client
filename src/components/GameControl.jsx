@@ -12,7 +12,7 @@ function GameControls({ gameState, onStartGame, onResetGame }) {
 
     return (
         <footer style={{ marginTop: "24px" }}>
-            {canStartGame && (
+            {/* {canStartGame && (
                 <button
                     onClick={onStartGame}
                     style={{
@@ -26,7 +26,7 @@ function GameControls({ gameState, onStartGame, onResetGame }) {
                 >
                     Start Game
                 </button>
-            )}
+            )} */}
             {canResetGame && (
                 <button
                     onClick={onResetGame}

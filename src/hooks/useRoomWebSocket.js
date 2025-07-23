@@ -188,7 +188,7 @@ export function useRoomWebSocket(roomId, user, setMessages) {
                   });
                   setMessages((prev) => [...prev, {
                       type: "system",
-                      message: "Game has been reset. Ready to start a new game!",
+                      message: "Game has been reset",
                       timestamp: new Date().toISOString(),
                   }]);
                   break;
