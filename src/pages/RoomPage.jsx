@@ -164,6 +164,7 @@ function RoomPage() {
                     <RoomMain
                         gameState={gameState}
                         user={user}
+                        roomMaxPlayers={roomMaxPlayers}
                         onResetGame={handleResetGame}
                     />
 

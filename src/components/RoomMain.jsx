@@ -1,7 +1,7 @@
 import { GameStatus } from "../components/GameStatus";
 import { PlayersList } from "./PlayerList";
 
-function RoomMain({ gameState, user, onResetGame }) {
+function RoomMain({ gameState, user, onResetGame, roomMaxPlayers }) {
     return (
         <main
             style={{
@@ -17,6 +17,7 @@ function RoomMain({ gameState, user, onResetGame }) {
             />
             <PlayersList 
                 players={gameState.players}
+                maxPlayers={roomMaxPlayers}
                 currentUser={user}
             />
         </main>
