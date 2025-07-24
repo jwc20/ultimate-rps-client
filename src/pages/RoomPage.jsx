@@ -16,6 +16,7 @@ function RoomPage() {
     const [messages, setMessages] = useState([]);
     const [room, setRoom] = useState(null);
     const [roomName, setRoomName] = useState("");
+    const [roomMaxPlayers, setRoomMaxPlayers] = useState(0);
     const [connectionStatus, setConnectionStatus] = useState("disconnected");
     const { wsRef, gameState, setGameState } = useRoomWebSocket(
         roomId,
@@ -26,6 +27,7 @@ function RoomPage() {
     const handleSetRoom = (room) => {
         setRoom(room);
         setRoomName(room.room_name);
+        setRoomMaxPlayers(room.max_players);
     };
 
     useEffect(() => {
@@ -155,6 +157,7 @@ function RoomPage() {
                     <RoomHeader
                         roomId={roomId}
                         roomName={roomName}
+                        roomMaxPlayers={roomMaxPlayers}
                         connectionStatus={connectionStatus}
                     />
 

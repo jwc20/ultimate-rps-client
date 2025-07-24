@@ -1,4 +1,4 @@
-function RoomHeader({ roomId, connectionStatus, roomName }) {
+function RoomHeader({ roomId, connectionStatus, roomName, roomMaxPlayers}) {
   return (
       <header
           style={{
@@ -8,6 +8,7 @@ function RoomHeader({ roomId, connectionStatus, roomName }) {
           }}
       >
           <h2>{roomName} (ID: {roomId})</h2>
+          <h4>Max players: {roomMaxPlayers}</h4>
           <div
               style={{
                   display: "flex",

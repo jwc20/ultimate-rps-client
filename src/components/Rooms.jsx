@@ -40,7 +40,7 @@ function Rooms() {
                 {rooms.map((room) => (
                     <li key={room.id}>
                         <span>
-                            {room.room_name} (ID: {room.id})
+                            {room.room_name} | Max Players: {room.max_players} | Actions: {room.number_of_actions} (ID: {room.id})
                         </span>
                         <Link to={`/room/${room.id}`}>
                             <button style={{ marginLeft: "10px" }}>Join</button>
