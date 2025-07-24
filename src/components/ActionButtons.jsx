@@ -1,14 +1,14 @@
-export function ActionButtons({ numberOfActions, disabled, onPlay }) {
-    
-    
+export function ActionButtons({numberOfActions, disabled, onPlay}) {
+
+
     // 🪨 📄 ✂️ 🖖 🦎 🧽 🔥 💨 🌊
-    const emojis = ['🪨', '📄', '✂️'];
-    
+    const emojis = ['🪨', '✂️', '📄'];
+
     return (
-        <div style={{ marginTop: 16 }}>
+        <div style={{marginTop: 16}}>
             <h4>{disabled ? "Actions (Waiting for others...)" : "Actions"}</h4>
-            <div style={{ display: "flex", gap: 8 }}>
-                {Array.from({ length: numberOfActions }).map((_, index) => (
+            <div style={{display: "flex", gap: 8}}>
+                {Array.from({length: numberOfActions}).map((_, index) => (
                     <button
                         key={index}
                         onClick={() => onPlay(index)}

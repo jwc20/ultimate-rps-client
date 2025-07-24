@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { apiClient } from "../api/apiClient";
 import { Link } from "react-router-dom";
 
@@ -6,7 +6,7 @@ function Rooms() {
     const [rooms, setRooms] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const wsRef = useRef(null);
+
 
     useEffect(() => {
         const fetchRooms = async () => {
@@ -40,10 +40,12 @@ function Rooms() {
                 {rooms.map((room) => (
                     <li key={room.id}>
                         <span>
-                            {room.room_name} (ID: {room.id})
+                            {room.room_name} | Players: {room.number_of_players}/{room.max_players} | Actions: {room.number_of_actions} (ID: {room.id})
                         </span>
                         <Link to={`/room/${room.id}`}>
-                            <button>Join</button>
+                            <button style={{ marginLeft: "10px" }} disabled={room.number_of_players === room.max_players}>
+                                Join
+                            </button>
                         </Link>
                     </li>
                 ))}

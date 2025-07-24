@@ -1,5 +1,5 @@
 
-function PlayersList({ players, currentUser }) {
+function PlayersList({ players, currentUser, maxPlayers }) {
   return (
       <section
           style={{
@@ -10,6 +10,7 @@ function PlayersList({ players, currentUser }) {
               maxWidth: "200px",
           }}
       >
+          <div>Players: {players.length}/{maxPlayers}</div>
           <ul
               style={{
                   listStyle: "none",
