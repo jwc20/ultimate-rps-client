@@ -15,6 +15,7 @@ function RoomPage() {
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState([]);
     const [room, setRoom] = useState(null);
+    const [roomName, setRoomName] = useState("");
     const [connectionStatus, setConnectionStatus] = useState("disconnected");
     const { wsRef, gameState, setGameState } = useRoomWebSocket(
         roomId,
@@ -22,9 +23,14 @@ function RoomPage() {
         setMessages
     );
 
+    const handleSetRoom = (room) => {
+        setRoom(room);
+        setRoomName(room.room_name);
+    };
+
     useEffect(() => {
         if (!roomId) return;
-        apiClient.get(`/room/${roomId}`).then(setRoom).catch(console.error);
+        apiClient.get(`/room/${roomId}`).then(handleSetRoom).catch(console.error);
     }, []);
 
     useEffect(() => {
@@ -148,6 +154,7 @@ function RoomPage() {
                 >
                     <RoomHeader
                         roomId={roomId}
+                        roomName={roomName}
                         connectionStatus={connectionStatus}
                     />
 

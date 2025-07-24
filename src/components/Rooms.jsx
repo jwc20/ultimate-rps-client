@@ -43,7 +43,7 @@ function Rooms() {
                             {room.room_name} (ID: {room.id})
                         </span>
                         <Link to={`/room/${room.id}`}>
-                            <button>Join</button>
+                            <button style={{ marginLeft: "10px" }}>Join</button>
                         </Link>
                     </li>
                 ))}

@@ -1,4 +1,4 @@
-function RoomHeader({ roomId, connectionStatus }) {
+function RoomHeader({ roomId, connectionStatus, roomName }) {
   return (
       <header
           style={{
@@ -7,7 +7,7 @@ function RoomHeader({ roomId, connectionStatus }) {
               borderBottom: "1px solid #eee",
           }}
       >
-          <h2>Room {roomId}</h2>
+          <h2>{roomName} (ID: {roomId})</h2>
           <div
               style={{
                   display: "flex",
