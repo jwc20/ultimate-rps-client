@@ -1,5 +1,5 @@
-import { GameStatus } from "../components/GameStatus";
-import { PlayersList } from "./PlayerList";
+import { GameStatus } from "./Sidebar/GameStatus.jsx";
+import { PlayersList } from "./Sidebar/PlayerList.jsx";
 
 function RoomMain({ gameState, user, onResetGame, roomMaxPlayers }) {
     return (

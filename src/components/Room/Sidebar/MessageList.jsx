@@ -13,14 +13,12 @@ export function MessageList({ messages, currentUser }) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                marginTop: "20px",
                 marginBottom: "20px",
             }}
         >
             <div
                 style={{
-                    paddingTop: "16px",
-                    minWidth: "1000px",
+                    // minWidth: "800px",
                     width: "100%",
                     boxSizing: "border-box",
                 }}
@@ -30,10 +28,8 @@ export function MessageList({ messages, currentUser }) {
                         height: "100vh",
                         maxHeight: "500px",
                         overflowY: "auto",
-                        paddingTop: "10px",
                         backgroundColor: "#1a1a1a",
                         borderRadius: "6px",
-                        // padding: "10px",
                         display: "flex",
                         flexDirection: "column",
                     }}

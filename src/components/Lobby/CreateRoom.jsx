@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { apiClient } from "../api/apiClient";
+import { apiClient } from "../../api/apiClient.js";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth.js";
 
 function CreateRoom() {
     const [roomName, setRoomName] = useState("");
@@ -102,7 +102,6 @@ function CreateRoom() {
                                 style={{ margin: "0 10px" }}
                                 type="number"
                                 min="3"
-                                max="10"
                                 step="2"
                                 value={numberOfActions}
                                 onChange={handleNumberOfActionsChange}

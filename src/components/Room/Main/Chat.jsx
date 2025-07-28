@@ -1,6 +1,6 @@
-import { MessageList } from "../components/MessageList";
-import { MessageInput } from "../components/MessageInput";
-import { ActionButtons } from "../components/ActionButtons";
+import { MessageList } from "../Sidebar/MessageList.jsx";
+import { MessageInput } from "../Sidebar/MessageInput.jsx";
+import { ActionButtons } from "./ActionButtons.jsx";
 
 function Chat({
     messages,
@@ -19,8 +19,8 @@ function Chat({
         !gameState.gameOver;
 
     return (
-        <div>
-            <div>
+        <div style={{ minWidth: "400px", maxWidth: "800px", width: "clamp(400px, 80vw, 800px)" }}>
+            <div style={{ boxSizing: "border-box", marginInline: "auto", maxInlineSize: "var(--measure)" }}>
                 <MessageList messages={messages} currentUser={user} />
                 <MessageInput
                     value={input}

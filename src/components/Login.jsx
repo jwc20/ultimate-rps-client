@@ -69,7 +69,9 @@ function Login() {
                     {loading ? "Logging in..." : "Login"}
                 </button>
             </form>
-
+            <p style={{ marginTop: "2rem" }}>
+                <Link to="/forgot">Forgot your password?</Link>
+            </p>
             <p style={{ marginTop: "2rem" }}>
                 Don't have an account? <Link to="/register">Register here</Link>
             </p>

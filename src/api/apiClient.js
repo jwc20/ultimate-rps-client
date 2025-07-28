@@ -56,6 +56,14 @@ class ApiClient {
     });
   }
 
+  async put(endpoint, data, options = {}) {
+    return this.request(endpoint, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      ...options,
+    });
+  }
+
   async postFormData(endpoint, formData, options = {}) {
     return this.request(endpoint, {
       method: 'POST',
