@@ -2,7 +2,7 @@ export function GameStatus({ gameState }) {
     return (
         <div
             style={{
-                border: "1px solid #e0e0e0",
+                border: "1px solid #ccc",
                 borderRadius: "6px",
                 padding: "16px",
                 minWidth: "200px",

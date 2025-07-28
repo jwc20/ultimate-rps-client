@@ -19,8 +19,8 @@ function Chat({
         !gameState.gameOver;
 
     return (
-        <div>
-            <div>
+        <div style={{ minWidth: "400px", maxWidth: "800px", width: "clamp(400px, 80vw, 800px)" }}>
+            <div style={{ boxSizing: "border-box", marginInline: "auto", maxInlineSize: "var(--measure)" }}>
                 <MessageList messages={messages} currentUser={user} />
                 <MessageInput
                     value={input}

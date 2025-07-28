@@ -1,27 +1,10 @@
-function RoomHeader({ roomId, connectionStatus, roomName, roomMaxPlayers}) {
-  return (
-      <header
-          style={{
-              marginBottom: "24px",
-              paddingBottom: "16px",
-              borderBottom: "1px solid #eee",
-          }}
-      >
-          <h2>{roomName} (ID: {roomId})</h2>
-          <h4>Max players: {roomMaxPlayers}</h4>
-          <div
-              style={{
-                  display: "flex",
-                  gap: "10px",
-                  alignItems: "center",
-              }}
-          >
-              <span>
-                  Status: <strong>{connectionStatus}</strong>
-              </span>
-          </div>
-      </header>
-  );
+function RoomHeader({roomId, connectionStatus, roomName, roomMaxPlayers}) {
+    return (
+        <div style={{marginLeft: 16}}>
+            <p><strong>{roomName}</strong> (ID: {roomId}) | Max players: <strong>{roomMaxPlayers}</strong> |
+                Status: <strong>{connectionStatus}</strong></p>
+        </div>
+    );
 }
 
-export { RoomHeader };
+export {RoomHeader};
