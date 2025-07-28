@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { apiClient } from "../api/apiClient";
+import { apiClient } from "../../api/apiClient.js";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth.js";
 
 function CreateRoom() {
     const [roomName, setRoomName] = useState("");

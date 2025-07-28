@@ -2,6 +2,12 @@ import {useCanvas} from '../../hooks/useCanvas.js';
 import {GraphSystem} from '../../lib/GraphSystem.js';
 
 const GraphCanvas = ({onGraphReady, ...props}) => {
+    // set width and height defaults
+    const width = props.width || '100vw'
+    const height = props.height || '100vh'
+    const position = props.position || 'fixed'
+    console.log(width, height);
+
     const {canvasRef} = useCanvas({
         onInit: (canvas, ctx) => {
             const graphSystem = new GraphSystem(canvas, ctx);
@@ -29,9 +35,9 @@ const GraphCanvas = ({onGraphReady, ...props}) => {
             ref={canvasRef}
             style={{
                 display: 'block',
-                width: '100vw',
-                height: '100vh',
-                position: 'fixed',
+                width: {width},
+                height: {height},
+                position: {position},
                 top: 0,
                 left: 0,
                 zIndex: -1,

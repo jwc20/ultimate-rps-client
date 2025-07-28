@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./auth/AuthProvider";
 import { RequireAuth } from "./auth/RequireAuth";
-import { Layout } from "./components/Layout";
+import { Layout } from "./components/Lobby/Layout.jsx";
 import { LoginPage } from "./pages/LoginPage";
 import { LobbyPage } from "./pages/LobbyPage";
 import { RegisterPage } from "./pages/RegisterPage";

@@ -92,7 +92,6 @@ export class ParticleSystem {
     gradient.addColorStop(0.5, "white");
     gradient.addColorStop(1, "blue");
     this.context.fillStyle = gradient;
-    // if the browser is in dark mode, set the stroke color to white and white if the browser is in light mode
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       this.context.strokeStyle = "white";
     } else {

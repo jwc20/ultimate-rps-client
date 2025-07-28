@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { apiClient } from "../api/apiClient";
+import { apiClient } from "../../api/apiClient.js";
 import { Link } from "react-router-dom";
 
 function Rooms() {

@@ -8,6 +8,8 @@ import {RoomHeader} from "../components/Room/RoomHeader.jsx";
 import {RoomMain} from "../components/Room/RoomMain.jsx";
 import {GameControls} from "../components/Room/Sidebar/GameControl.jsx";
 import {Chat} from "../components/Room/Main/Chat.jsx";
+import {ActionGraph} from "../components/Room/ActionGraph.jsx";
+import {ActionButtons} from "../components/Room/Main/ActionButtons.jsx";
 
 function RoomPage() {
     const {roomId} = useParams();
@@ -139,6 +141,9 @@ function RoomPage() {
                         </div>
                     </div>
                 </div>
+                <div style={styles.actionGraphContainer}>
+                    <ActionGraph />
+                </div>
             </div>
         </>
     );
@@ -188,6 +193,17 @@ const styles = {
         flexGrow: 999,
         minInlineSize: "20%",
     },
+    actionGraphContainer: {
+        padding: "16px",
+        border: "1px solid #ccc",
+        borderRadius: "6px",
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "var(--s1)",
+        width: "100%",
+        // maxWidth: "600px",
+        marginTop: "16px",
+    }
 };
 
 export {RoomPage};

@@ -1,6 +1,6 @@
 
-import { CreateRoom } from "../components/CreateRoom";
-import { Rooms } from "../components/Rooms";
+import { CreateRoom } from "../components/Lobby/CreateRoom.jsx";
+import { Rooms } from "../components/Lobby/Rooms.jsx";
 
 function LobbyPage() {
   return (
