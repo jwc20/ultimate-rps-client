@@ -1,22 +1,20 @@
-import {useAuth} from "../hooks/useAuth";
-import {apiClient} from "../api/apiClient";
+import {useAuth} from "../../hooks/useAuth.js";
+import {apiClient} from "../../api/apiClient.js";
 import {useState, useEffect} from "react";
 
 function UserChangePassword({ userId }) {
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
     const [error, setError] = useState(null);
 
     const handleSubmitPassword = async (event) => {
         event.preventDefault();
-        if (password !== confirmPassword) {
-            setError("Passwords do not match");
-            return;
+        const data = {
+            current_password: currentPassword,
+            new_password: newPassword,
         }
-
         try {
-            const response = await apiClient.put(`/users/${userId}/change-password`, {password});
-            // Update the user object with the new password
+            const response = await apiClient.put(`/users/${userId}/change-password`, data);
             console.log(response);
         } catch (error) {
             setError(error.message);
@@ -36,8 +34,8 @@ function UserChangePassword({ userId }) {
                             <td>
                                 <input
                                     type="password"
-                                    value={password}
-                                    onChange={(event) => setPassword(event.target.value)}
+                                    value={currentPassword}
+                                    onChange={(event) => setCurrentPassword(event.target.value)}
                                 />
                             </td>
                         </tr>
@@ -46,22 +44,12 @@ function UserChangePassword({ userId }) {
                             <td>
                                 <input
                                     type="password"
-                                    value={confirmPassword}
-                                    onChange={(event) => setConfirmPassword(event.target.value)}
+                                    value={newPassword}
+                                    onChange={(event) => setNewPassword(event.target.value)}
                                 />
                             </td>
                         </tr>
 
-                        <tr>
-                            <td>Confirm New Password:</td>
-                            <td>
-                                <input
-                                    type="password"
-                                    value={confirmPassword}
-                                    onChange={(event) => setConfirmPassword(event.target.value)}
-                                />
-                            </td>
-                        </tr>
                         <tr>
                             <td></td>
                             <td>

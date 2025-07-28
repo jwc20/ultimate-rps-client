@@ -15,10 +15,7 @@ function UserChangeUsername({userId}) {
             const data = {
                 username: newUsername
             };
-            console.log(data);
             const response = await apiClient.put(`/users/${userId}/change-username`, data);
-            // Update the user object with the new username
-            // user.username = username;
             console.log(response);
         } catch (error) {
             setError(error.message);

@@ -1,7 +1,7 @@
 import {useAuth} from "../hooks/useAuth";
 import {apiClient} from "../api/apiClient";
 import {useState, useEffect} from "react";
-import {UserChangePassword} from "../components/UserChangePassword.jsx";
+import {UserChangePassword} from "../components/User/UserChangePassword.jsx";
 import {UserChangeUsername} from "../components/User/UserChangeUsername.jsx";
 
 function UserPage() {
