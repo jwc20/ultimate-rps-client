@@ -4,10 +4,10 @@ import {useAuth} from "../hooks/useAuth";
 import {apiClient} from "../api/apiClient";
 import {useRoomWebSocket} from "../hooks/useRoomWebSocket";
 
-import {RoomHeader} from "../components/RoomHeader";
-import {RoomMain} from "../components/RoomMain";
-import {GameControls} from "../components/GameControl";
-import {Chat} from "../components/Chat";
+import {RoomHeader} from "../components/Room/RoomHeader.jsx";
+import {RoomMain} from "../components/Room/RoomMain.jsx";
+import {GameControls} from "../components/Room/Sidebar/GameControl.jsx";
+import {Chat} from "../components/Room/Main/Chat.jsx";
 
 function RoomPage() {
     const {roomId} = useParams();

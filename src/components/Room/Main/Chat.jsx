@@ -1,6 +1,6 @@
-import { MessageList } from "../components/MessageList";
-import { MessageInput } from "../components/MessageInput";
-import { ActionButtons } from "../components/ActionButtons";
+import { MessageList } from "../Sidebar/MessageList.jsx";
+import { MessageInput } from "../Sidebar/MessageInput.jsx";
+import { ActionButtons } from "./ActionButtons.jsx";
 
 function Chat({
     messages,
