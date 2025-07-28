@@ -102,7 +102,6 @@ function CreateRoom() {
                                 style={{ margin: "0 10px" }}
                                 type="number"
                                 min="3"
-                                max="10"
                                 step="2"
                                 value={numberOfActions}
                                 onChange={handleNumberOfActionsChange}
