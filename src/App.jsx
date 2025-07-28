@@ -7,6 +7,7 @@ import { LobbyPage } from "./pages/LobbyPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { RoomPage } from "./pages/RoomPage";
 import { UserPage } from "./pages/UserPage";
+import GridCanvas  from "./components/Canvas/GridCanvas.jsx";
 
 import "./App.css";
 
