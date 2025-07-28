@@ -11,47 +11,55 @@ import { UserPage } from "./pages/UserPage";
 import "./App.css";
 
 export default function App() {
-    return (
-        <AuthProvider>
-            <Routes>
-                <Route element={<Layout />}>
-                    <Route
-                        path="/"
-                        element={
-                            <RequireAuth>
-                                <LobbyPage />
-                            </RequireAuth>
-                        }
-                    />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
+  return (
+    <AuthProvider>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route
+            path="/"
+            element={
+              <RequireAuth>
+                <LobbyPage />
+              </RequireAuth>
+            }
+          />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-                    <Route
-                        path="/lobby"
-                        element={
-                            <RequireAuth>
-                                <LobbyPage />
-                            </RequireAuth>
-                        }
-                    />
-                    <Route
-                        path="/room/:roomId"
-                        element={
-                            <RequireAuth>
-                                <RoomPage />
-                            </RequireAuth>
-                        }
-                    />
-                    <Route
-                        path="/user/:username"
-                        element={
-                            <RequireAuth>
-                                <UserPage />
-                            </RequireAuth>
-                        }
-                    />
-                </Route>
-            </Routes>
-        </AuthProvider>
-    );
+          <Route
+            path="/lobby"
+            element={
+              <RequireAuth>
+                <LobbyPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/room/:roomId"
+            element={
+              <RequireAuth>
+                <RoomPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/forgot"
+            element={
+              <RequireAuth>
+                <UserPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/me"
+            element={
+              <RequireAuth>
+                <UserPage />
+              </RequireAuth>
+            }
+          />
+        </Route>
+      </Routes>
+    </AuthProvider>
+  );
 }
