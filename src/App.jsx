@@ -3,10 +3,10 @@ import { AuthProvider } from "./auth/AuthProvider";
 import { RequireAuth } from "./auth/RequireAuth";
 import { Layout } from "./components/Layout";
 import { LoginPage } from "./pages/LoginPage";
-// import { HomePage } from "./pages/HomePage";
 import { LobbyPage } from "./pages/LobbyPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import { RoomPage } from "./pages/RoomPage";
+import { UserPage } from "./pages/UserPage";
 
 import "./App.css";
 
@@ -39,6 +39,14 @@ export default function App() {
                         element={
                             <RequireAuth>
                                 <RoomPage />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path="/user/:username"
+                        element={
+                            <RequireAuth>
+                                <UserPage />
                             </RequireAuth>
                         }
                     />

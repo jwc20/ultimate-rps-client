@@ -30,10 +30,10 @@ function Rooms() {
                 border: "1px solid #ccc",
                 borderRadius: "6px",
                 margin: "10px",
-                padding: "10px",
+                padding: "20px",
             }}
         >
-            <h4>Rooms</h4>
+            <h3>Rooms</h3>
             {loading && <div>Loading rooms...</div>}
             {error && <div style={{ color: "red" }}>{error}</div>}
             <ul>
