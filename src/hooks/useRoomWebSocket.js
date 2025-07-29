@@ -13,6 +13,7 @@ export function useRoomWebSocket(roomId, user, setMessages) {
     const wsRef = useRef(null);
     const [gameState, setGameState] = useState({
         players: [],
+        kickedPlayers: [],
         readyPlayers: 0,
         totalActive: 0,
         isEliminated: false,
@@ -21,6 +22,10 @@ export function useRoomWebSocket(roomId, user, setMessages) {
         gameOver: false,
         winner: null,
     });
+    const handleDisconnect = () => {
+        wsRef.current.close();
+        wsRef.current = null;
+    }
 
     useEffect(() => {
         if (!roomId) return;
@@ -128,6 +133,22 @@ export function useRoomWebSocket(roomId, user, setMessages) {
                     }]);
                     break;
 
+                case "kick_player": {
+                    // console.log(parsed);
+                    setGameState((prev) => ({
+                        ...prev,
+                        players: parsed.players || [],
+                        totalActive: (parsed.players || []).length,
+                        kickedPlayers: parsed.kicked_players || [],
+                    }));
+                    setMessages((prev) => [...prev, {
+                        type: "system",
+                        message: `${parsed.host} kicked ${parsed.kick_player} from the room`,
+                        timestamp: new Date().toISOString(),
+                    }]);
+                    break;
+                }
+
                 case "round_complete": {
                     let roundSummary = `Round ${parsed.round} complete!\n`;
 
@@ -209,6 +230,7 @@ export function useRoomWebSocket(roomId, user, setMessages) {
         ws.onclose = () => {
             if (!isCleaningUp) {
                 console.log(`Disconnected from room ${roomId}`);
+                handleDisconnect();
                 // setConnectionStatus('disconnected');
             }
         };

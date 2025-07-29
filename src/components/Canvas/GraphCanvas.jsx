@@ -6,7 +6,6 @@ const GraphCanvas = ({onGraphReady, ...props}) => {
     const width = props.width || '100vw'
     const height = props.height || '100vh'
     const position = props.position || 'fixed'
-    console.log(width, height);
 
     const {canvasRef} = useCanvas({
         onInit: (canvas, ctx) => {

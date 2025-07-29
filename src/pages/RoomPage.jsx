@@ -10,6 +10,8 @@ import {GameControls} from "../components/Room/Sidebar/GameControl.jsx";
 import {Chat} from "../components/Room/Main/Chat.jsx";
 import {ActionGraph} from "../components/Room/ActionGraph.jsx";
 import {ActionButtons} from "../components/Room/Main/ActionButtons.jsx";
+import { useLocation, Navigate, redirect } from "react-router-dom";
+
 
 function RoomPage() {
     const {roomId} = useParams();
@@ -20,6 +22,7 @@ function RoomPage() {
     const [roomName, setRoomName] = useState("");
     const [roomMaxPlayers, setRoomMaxPlayers] = useState(0);
     const [roomNumberOfActions, setRoomNumberOfActions] = useState(0);
+    const [isHost, setIsHost] = useState(false);
     const [connectionStatus, setConnectionStatus] = useState("disconnected");
     const {wsRef, gameState, setGameState} = useRoomWebSocket(roomId, user, setMessages);
 
@@ -28,7 +31,18 @@ function RoomPage() {
         setRoomName(room.room_name);
         setRoomMaxPlayers(room.max_players);
         setRoomNumberOfActions(room.number_of_actions);
+        setIsHost(room.created_by === user.id);
     };
+
+    // const handleDisconnect = (e) => {
+    //     console.log(e);
+    //     if (e.code === 4001) {
+    //         setConnectionStatus("disconnected");
+    //         return redirect("/lobby");
+    //     } else {
+    //         setConnectionStatus("disconnected");
+    //     }
+    // };
 
     useEffect(() => {
         if (!roomId) return;
@@ -40,7 +54,7 @@ function RoomPage() {
 
         const ws = wsRef.current;
         const handleOpen = () => setConnectionStatus("connected");
-        const handleClose = () => setConnectionStatus("disconnected");
+        const handleClose = (e) => setConnectionStatus("disconnected");
         const handleError = () => setConnectionStatus("error");
 
         if (ws.readyState === WebSocket.OPEN) {
@@ -90,6 +104,23 @@ function RoomPage() {
         }
     };
 
+    const handlePlayerKick = async (playerToKick) => {
+        if (wsRef.current && isHost) {
+            console.log("kick", playerToKick);
+            const data = {
+                roomId: roomId,
+                username: playerToKick
+            }
+            const response = await apiClient.post(`/rooms/${roomId}/kick/${playerToKick}`, data);
+            if (response.status === 200) {
+                wsRef.current.send(JSON.stringify({
+                    username: user.username, message: playerToKick, type: "kick_player",
+                }));
+
+            }
+        }
+    };
+
     return (
         <>
             <div style={styles.backButtonContainer}>
@@ -107,7 +138,6 @@ function RoomPage() {
                         connectionStatus={connectionStatus}
                     />
                 </div>
-
                 <div style={styles.withSidebar}>
                     <div style={styles.withSidebarFirstChild}>
                         <div style={styles.chatContainer}>
@@ -131,6 +161,8 @@ function RoomPage() {
                                 user={user}
                                 roomMaxPlayers={roomMaxPlayers}
                                 onResetGame={handleResetGame}
+                                isHost={isHost}
+                                onKick={handlePlayerKick}
                             />
 
                             <GameControls
@@ -149,7 +181,6 @@ function RoomPage() {
     );
 }
 
-// CSS Styles
 const styles = {
     backButtonContainer: {
         paddingBottom: "16px",

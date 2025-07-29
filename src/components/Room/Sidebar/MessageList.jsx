@@ -3,9 +3,9 @@ import { useRef, useEffect } from "react";
 export function MessageList({ messages, currentUser }) {
     const messagesEndRef = useRef(null);
 
-    useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages]);
+    // useEffect(() => {
+    //     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    // }, [messages]);
 
     return (
         <div

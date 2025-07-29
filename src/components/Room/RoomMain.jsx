@@ -1,7 +1,7 @@
-import { GameStatus } from "./Sidebar/GameStatus.jsx";
-import { PlayersList } from "./Sidebar/PlayerList.jsx";
+import {GameStatus} from "./Sidebar/GameStatus.jsx";
+import {PlayersList} from "./Sidebar/PlayerList.jsx";
 
-function RoomMain({ gameState, user, onResetGame, roomMaxPlayers }) {
+function RoomMain({gameState, user, onResetGame, roomMaxPlayers, isHost, onKick}) {
     return (
         <main
             style={{
@@ -15,13 +15,15 @@ function RoomMain({ gameState, user, onResetGame, roomMaxPlayers }) {
                 gameState={gameState}
                 onReset={onResetGame}
             />
-            <PlayersList 
+            <PlayersList
                 players={gameState.players}
                 maxPlayers={roomMaxPlayers}
                 currentUser={user}
+                isHost={isHost}
+                onKick={onKick}
             />
         </main>
     );
 }
 
-export { RoomMain };
+export {RoomMain};
