@@ -2,10 +2,15 @@ import { useRef, useEffect } from "react";
 
 export function MessageList({ messages, currentUser }) {
     const messagesEndRef = useRef(null);
+    const scrollContainerRef = useRef(null); // Add ref for the container
 
-    // useEffect(() => {
-    //     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    // }, [messages]);
+
+    useEffect(() => {
+        // Scroll the container to the bottom
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+        }
+    }, [messages]);
 
     return (
         <div
@@ -24,6 +29,7 @@ export function MessageList({ messages, currentUser }) {
                 }}
             >
                 <div
+                    ref={scrollContainerRef}
                     style={{
                         height: "100vh",
                         maxHeight: "500px",

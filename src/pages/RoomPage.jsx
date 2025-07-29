@@ -27,7 +27,7 @@ function RoomPage() {
     const {wsRef, gameState, setGameState, shouldRedirect} = useRoomWebSocket(roomId, user, setMessages);
     const navigate = useNavigate();
 
-    console.log(gameState);
+    // console.log(gameState);
 
     const handleSetRoom = (room) => {
         setRoom(room);

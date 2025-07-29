@@ -5,7 +5,7 @@ const ParticleCanvas = (props) => {
     const {canvasRef} = useCanvas({
         onInit: (canvas, ctx) => {
             return new ParticleSystem(canvas, ctx, {
-                numberOfParticles: 100,
+                numberOfParticles: 10,
                 maxDistance: 100,
                 mouseRadius: 150,
             });
