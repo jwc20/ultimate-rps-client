@@ -10,7 +10,7 @@ import {GameControls} from "../components/Room/Sidebar/GameControl.jsx";
 import {Chat} from "../components/Room/Main/Chat.jsx";
 import {ActionGraph} from "../components/Room/ActionGraph.jsx";
 import {ActionButtons} from "../components/Room/Main/ActionButtons.jsx";
-import { useLocation, Navigate, redirect } from "react-router-dom";
+import { useLocation, Navigate, redirect, useNavigate } from "react-router-dom";
 
 
 function RoomPage() {
@@ -24,7 +24,10 @@ function RoomPage() {
     const [roomNumberOfActions, setRoomNumberOfActions] = useState(0);
     const [isHost, setIsHost] = useState(false);
     const [connectionStatus, setConnectionStatus] = useState("disconnected");
-    const {wsRef, gameState, setGameState} = useRoomWebSocket(roomId, user, setMessages);
+    const {wsRef, gameState, setGameState, shouldRedirect} = useRoomWebSocket(roomId, user, setMessages);
+    const navigate = useNavigate();
+
+    console.log(gameState);
 
     const handleSetRoom = (room) => {
         setRoom(room);
@@ -34,15 +37,12 @@ function RoomPage() {
         setIsHost(room.created_by === user.id);
     };
 
-    // const handleDisconnect = (e) => {
-    //     console.log(e);
-    //     if (e.code === 4001) {
-    //         setConnectionStatus("disconnected");
-    //         return redirect("/lobby");
-    //     } else {
-    //         setConnectionStatus("disconnected");
-    //     }
-    // };
+    useEffect(() => {
+        if (shouldRedirect) {
+            navigate("/lobby");
+        }
+    }, [shouldRedirect, navigate]);
+
 
     useEffect(() => {
         if (!roomId) return;
@@ -54,7 +54,7 @@ function RoomPage() {
 
         const ws = wsRef.current;
         const handleOpen = () => setConnectionStatus("connected");
-        const handleClose = (e) => setConnectionStatus("disconnected");
+        const handleClose = () => setConnectionStatus("disconnected");
         const handleError = () => setConnectionStatus("error");
 
         if (ws.readyState === WebSocket.OPEN) {
@@ -104,20 +104,13 @@ function RoomPage() {
         }
     };
 
-    const handlePlayerKick = async (playerToKick) => {
+    const handlePlayerKick = (playerToKick) => {
         if (wsRef.current && isHost) {
-            console.log("kick", playerToKick);
-            const data = {
-                roomId: roomId,
-                username: playerToKick
-            }
-            const response = await apiClient.post(`/rooms/${roomId}/kick/${playerToKick}`, data);
-            if (response.status === 200) {
-                wsRef.current.send(JSON.stringify({
-                    username: user.username, message: playerToKick, type: "kick_player",
-                }));
-
-            }
+            wsRef.current.send(JSON.stringify({
+                type: "kick_player",
+                username: user.username,
+                target: playerToKick,
+            }));
         }
     };
 

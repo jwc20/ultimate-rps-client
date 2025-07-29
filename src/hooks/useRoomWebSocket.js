@@ -11,6 +11,7 @@ const actionNames = {
 
 export function useRoomWebSocket(roomId, user, setMessages) {
     const wsRef = useRef(null);
+    const [shouldRedirect, setShouldRedirect] = useState(false);
     const [gameState, setGameState] = useState({
         players: [],
         kickedPlayers: [],
@@ -227,9 +228,13 @@ export function useRoomWebSocket(roomId, user, setMessages) {
             }
         };
 
-        ws.onclose = () => {
+        ws.onclose = (event) => {
             if (!isCleaningUp) {
                 console.log(`Disconnected from room ${roomId}`);
+                if (event.code === 4001) {
+                    setShouldRedirect(true);
+                }
+
                 handleDisconnect();
                 // setConnectionStatus('disconnected');
             }
@@ -248,5 +253,5 @@ export function useRoomWebSocket(roomId, user, setMessages) {
         };
     }, [roomId, user?.username, setMessages]);
 
-    return {wsRef, gameState, setGameState};
+    return {wsRef, gameState, setGameState, shouldRedirect};
 }
