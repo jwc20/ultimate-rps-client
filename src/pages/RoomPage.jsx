@@ -166,9 +166,9 @@ function RoomPage() {
                         </div>
                     </div>
                 </div>
-                <div style={styles.actionGraphContainer}>
-                    <ActionGraph />
-                </div>
+                {/*<div style={styles.actionGraphContainer}>*/}
+                {/*    <ActionGraph />*/}
+                {/*</div>*/}
             </div>
         </>
     );
