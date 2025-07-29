@@ -11,16 +11,23 @@ const actionNames = {
 
 export function useRoomWebSocket(roomId, user, setMessages) {
     const wsRef = useRef(null);
+    const [shouldRedirect, setShouldRedirect] = useState(false);
     const [gameState, setGameState] = useState({
         players: [],
+        kickedPlayers: [],
         readyPlayers: 0,
         totalActive: 0,
         isEliminated: false,
-        currentRound: 1,
+        gameNumber: 1,
+        gameRound: 1,
         hasPlayed: false,
         gameOver: false,
         winner: null,
     });
+    const handleDisconnect = () => {
+        wsRef.current.close();
+        wsRef.current = null;
+    }
 
     useEffect(() => {
         if (!roomId) return;
@@ -128,10 +135,25 @@ export function useRoomWebSocket(roomId, user, setMessages) {
                     }]);
                     break;
 
-                case "round_complete": {
-                    let roundSummary = `Round ${parsed.round} complete!\n`;
+                case "kick_player": {
+                    // console.log(parsed);
+                    setGameState((prev) => ({
+                        ...prev,
+                        players: parsed.players || [],
+                        totalActive: (parsed.players || []).length,
+                        kickedPlayers: parsed.kicked_players || [],
+                    }));
+                    setMessages((prev) => [...prev, {
+                        type: "system",
+                        message: `${parsed.host} kicked ${parsed.kick_player} from the room`,
+                        timestamp: new Date().toISOString(),
+                    }]);
+                    break;
+                }
 
-                    // Add player actions from server
+                case "round_complete": {
+                    console.log(parsed)
+                    let roundSummary = `Round ${parsed.game_round} complete!\n`;
                     if (parsed.actions && Object.keys(parsed.actions).length > 0) {
                         roundSummary += "\nPlayer Actions:";
                         for (const [player, action] of Object.entries(parsed.actions)) {
@@ -139,8 +161,6 @@ export function useRoomWebSocket(roomId, user, setMessages) {
                             roundSummary += `\n• ${player}: ${actionName}`;
                         }
                     }
-
-                    // Add elimination info
                     const eliminatedMsg = parsed.eliminated.length > 0
                         ? `\n\nEliminated: ${parsed.eliminated.join(", ")}`
                         : "\n\nNo one eliminated";
@@ -150,7 +170,8 @@ export function useRoomWebSocket(roomId, user, setMessages) {
                     setGameState((prev) => ({
                         ...prev,
                         isEliminated: parsed.eliminated.includes(user?.username),
-                        currentRound: parsed.round + 1,
+                        gameRound: parsed.game_round,
+                        gameNumber: parsed.game_number,
                         hasPlayed: false,
                         readyPlayers: 0,
                         gameOver: parsed.game_over,
@@ -175,12 +196,15 @@ export function useRoomWebSocket(roomId, user, setMessages) {
 
 
                 case "game_reset":
+                    console.log("Game reset");
+                    console.log(parsed);
                     setGameState({
                         players: parsed.players || [],
                         readyPlayers: 0,
                         totalActive: (parsed.players || []).length,
                         isEliminated: false,
-                        currentRound: 1,
+                        gameRound: parsed.game_round,
+                        gameNumber: parsed.game_number,
                         hasPlayed: false,
                         gameOver: false,
                         gameActive: false,
@@ -206,9 +230,14 @@ export function useRoomWebSocket(roomId, user, setMessages) {
             }
         };
 
-        ws.onclose = () => {
+        ws.onclose = (event) => {
             if (!isCleaningUp) {
                 console.log(`Disconnected from room ${roomId}`);
+                if (event.code === 4001) {
+                    setShouldRedirect(true);
+                }
+
+                handleDisconnect();
                 // setConnectionStatus('disconnected');
             }
         };
@@ -226,5 +255,5 @@ export function useRoomWebSocket(roomId, user, setMessages) {
         };
     }, [roomId, user?.username, setMessages]);
 
-    return {wsRef, gameState, setGameState};
+    return {wsRef, gameState, setGameState, shouldRedirect};
 }

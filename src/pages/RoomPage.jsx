@@ -10,6 +10,8 @@ import {GameControls} from "../components/Room/Sidebar/GameControl.jsx";
 import {Chat} from "../components/Room/Main/Chat.jsx";
 import {ActionGraph} from "../components/Room/ActionGraph.jsx";
 import {ActionButtons} from "../components/Room/Main/ActionButtons.jsx";
+import { useLocation, Navigate, redirect, useNavigate } from "react-router-dom";
+
 
 function RoomPage() {
     const {roomId} = useParams();
@@ -20,15 +22,27 @@ function RoomPage() {
     const [roomName, setRoomName] = useState("");
     const [roomMaxPlayers, setRoomMaxPlayers] = useState(0);
     const [roomNumberOfActions, setRoomNumberOfActions] = useState(0);
+    const [isHost, setIsHost] = useState(false);
     const [connectionStatus, setConnectionStatus] = useState("disconnected");
-    const {wsRef, gameState, setGameState} = useRoomWebSocket(roomId, user, setMessages);
+    const {wsRef, gameState, setGameState, shouldRedirect} = useRoomWebSocket(roomId, user, setMessages);
+    const navigate = useNavigate();
+
+    // console.log(gameState);
 
     const handleSetRoom = (room) => {
         setRoom(room);
         setRoomName(room.room_name);
         setRoomMaxPlayers(room.max_players);
         setRoomNumberOfActions(room.number_of_actions);
+        setIsHost(room.created_by === user.id);
     };
+
+    useEffect(() => {
+        if (shouldRedirect) {
+            navigate("/lobby");
+        }
+    }, [shouldRedirect, navigate]);
+
 
     useEffect(() => {
         if (!roomId) return;
@@ -90,6 +104,16 @@ function RoomPage() {
         }
     };
 
+    const handlePlayerKick = (playerToKick) => {
+        if (wsRef.current && isHost) {
+            wsRef.current.send(JSON.stringify({
+                type: "kick_player",
+                username: user.username,
+                target: playerToKick,
+            }));
+        }
+    };
+
     return (
         <>
             <div style={styles.backButtonContainer}>
@@ -107,7 +131,6 @@ function RoomPage() {
                         connectionStatus={connectionStatus}
                     />
                 </div>
-
                 <div style={styles.withSidebar}>
                     <div style={styles.withSidebarFirstChild}>
                         <div style={styles.chatContainer}>
@@ -131,6 +154,8 @@ function RoomPage() {
                                 user={user}
                                 roomMaxPlayers={roomMaxPlayers}
                                 onResetGame={handleResetGame}
+                                isHost={isHost}
+                                onKick={handlePlayerKick}
                             />
 
                             <GameControls
@@ -141,15 +166,14 @@ function RoomPage() {
                         </div>
                     </div>
                 </div>
-                <div style={styles.actionGraphContainer}>
-                    <ActionGraph />
-                </div>
+                {/*<div style={styles.actionGraphContainer}>*/}
+                {/*    <ActionGraph />*/}
+                {/*</div>*/}
             </div>
         </>
     );
 }
 
-// CSS Styles
 const styles = {
     backButtonContainer: {
         paddingBottom: "16px",

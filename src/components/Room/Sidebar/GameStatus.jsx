@@ -8,7 +8,8 @@ export function GameStatus({ gameState }) {
                 minWidth: "200px",
             }}
         >
-            <div>Round: {gameState.currentRound}</div>
+            <div>Game: {gameState.gameNumber}</div>
+            <div>Round: {gameState.gameRound}</div>
             <div>
                 Players Ready: {gameState.readyPlayers}/{gameState.totalActive}
             </div>

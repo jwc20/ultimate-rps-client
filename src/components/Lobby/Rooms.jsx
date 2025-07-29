@@ -37,18 +37,20 @@ function Rooms() {
             {loading && <div>Loading rooms...</div>}
             {error && <div style={{ color: "red" }}>{error}</div>}
             <ul>
-                {rooms.map((room) => (
-                    <li key={room.id}>
+                {rooms
+                    .filter(room => !room.disabled)
+                    .map((room) => (
+                        <li key={room.id}>
                         <span>
                             {room.room_name} | Players: {room.number_of_players}/{room.max_players} | Actions: {room.number_of_actions} (ID: {room.id})
                         </span>
-                        <Link to={`/room/${room.id}`}>
-                            <button style={{ marginLeft: "10px" }} disabled={room.number_of_players === room.max_players}>
-                                Join
-                            </button>
-                        </Link>
-                    </li>
-                ))}
+                            <Link to={`/room/${room.id}`}>
+                                <button style={{ marginLeft: "10px" }} disabled={room.number_of_players === room.max_players}>
+                                    Join
+                                </button>
+                            </Link>
+                        </li>
+                    ))}
             </ul>
         </div>
     );
